@@ -1,0 +1,332 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 20% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
+
+    --primary: 220 20% 10%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 15% 96%;
+    --secondary-foreground: 220 20% 10%;
+
+    --muted: 30 10% 94%;
+    --muted-foreground: 220 10% 45%;
+
+    --accent: 24 90% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 10% 92%;
+    --input: 220 10% 92%;
+    --ring: 24 90% 55%;
+
+    --radius: 0.75rem;
+
+    --gradient-hero-orange: radial-gradient(ellipse 80% 70% at 38% 25%, hsl(30 95% 65% / 0.6), transparent 70%);
+    --gradient-hero-blue: radial-gradient(ellipse 70% 60% at 65% 30%, hsl(220 80% 60% / 0.4), transparent 70%);
+    --gradient-warm: linear-gradient(135deg, hsl(24 90% 55% / 0.08), hsl(220 80% 60% / 0.05));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(30 20% 98%));
+
+    --shadow-sm: 0 1px 2px hsl(220 20% 10% / 0.04);
+    --shadow-md: 0 4px 12px hsl(220 20% 10% / 0.06);
+    --shadow-lg: 0 8px 30px hsl(220 20% 10% / 0.08);
+    --shadow-glow: 0 0 40px hsl(24 90% 55% / 0.15);
+    --motif-filter: invert(0.3);
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 20% 10%;
+    --sidebar-primary: 220 20% 10%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 30 15% 96%;
+    --sidebar-accent-foreground: 220 20% 10%;
+    --sidebar-border: 220 10% 92%;
+    --sidebar-ring: 24 90% 55%;
+
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --info: 217 91% 60%;
+    --info-foreground: 0 0% 100%;
+
+    --chart-1: 24 90% 55%;
+    --chart-2: 220 80% 55%;
+    --chart-3: 142 70% 45%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 280 65% 55%;
+    --chart-6: 340 75% 55%;
+
+    /* Theme Aware Ambient Gradients */
+    --ambient-base: #F4F7FF;
+    --ambient-glow-op: 0.12;
+    --ambient-mist-op: 0.08;
+  }
+
+  .dark {
+    --background: 0 0% 6%;
+    --foreground: 30 10% 90%;
+
+    --card: 0 0% 9%;
+    --card-foreground: 30 10% 90%;
+
+    --popover: 0 0% 9%;
+    --popover-foreground: 30 10% 90%;
+
+    --primary: 30 10% 90%;
+    --primary-foreground: 0 0% 6%;
+
+    --secondary: 0 0% 13%;
+    --secondary-foreground: 30 10% 90%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 50%;
+
+    --accent: 24 90% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 24 90% 55%;
+
+    --gradient-hero-orange: radial-gradient(ellipse 80% 70% at 38% 25%, hsl(30 95% 65% / 0.3), transparent 70%);
+    --gradient-hero-blue: radial-gradient(ellipse 70% 60% at 65% 30%, hsl(220 80% 60% / 0.2), transparent 70%);
+    --gradient-warm: linear-gradient(135deg, hsl(24 90% 55% / 0.06), hsl(220 80% 60% / 0.04));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 9%), hsl(0 0% 11%));
+
+    --shadow-sm: 0 1px 2px hsl(0 0% 0% / 0.2);
+    --shadow-md: 0 4px 12px hsl(0 0% 0% / 0.3);
+    --shadow-lg: 0 8px 30px hsl(0 0% 0% / 0.4);
+    --shadow-glow: 0 0 40px hsl(24 90% 55% / 0.1);
+    --motif-filter: invert(0) brightness(0.7);
+
+    --sidebar-background: 0 0% 9%;
+    --sidebar-foreground: 30 10% 90%;
+    --sidebar-primary: 30 10% 90%;
+    --sidebar-primary-foreground: 0 0% 6%;
+    --sidebar-accent: 0 0% 13%;
+    --sidebar-accent-foreground: 30 10% 90%;
+    --sidebar-border: 0 0% 16%;
+    --sidebar-ring: 24 90% 55%;
+
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --info: 217 91% 60%;
+    --info-foreground: 0 0% 100%;
+
+    --chart-1: 24 90% 55%;
+    --chart-2: 220 80% 55%;
+    --chart-3: 142 70% 45%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 280 65% 55%;
+    --chart-6: 340 75% 55%;
+
+    /* Theme Aware Ambient Gradients (Dark) */
+    --ambient-base: #0a0a0a;
+    --ambient-glow-op: 0.06;
+    --ambient-mist-op: 0.04;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(249, 115, 12, calc(var(--ambient-glow-op) * 0.5)) 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 100%, rgba(165, 187, 252, calc(var(--ambient-mist-op) * 0.5)) 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 100%, rgba(165, 187, 252, calc(var(--ambient-mist-op) * 0.5)) 0%, transparent 60%),
+      var(--ambient-base);
+    background-attachment: fixed;
+    font-family: 'DM Sans', system-ui, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: 'DM Serif Display', serif;
+  }
+}
+
+/* Hero gradient blobs */
+.hero-gradient-blob {
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero-orange);
+  pointer-events: none;
+}
+
+.hero-gradient-blob::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero-blue);
+}
+
+/* Section accent backgrounds */
+.section-accent-warm {
+  position: relative;
+}
+
+.section-accent-warm::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, hsl(24 90% 55% / 0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.section-accent-blue {
+  position: relative;
+}
+
+.section-accent-blue::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 70% 100%, hsl(220 80% 60% / 0.1), transparent 70%);
+  pointer-events: none;
+}
+
+.section-accent-cta {
+  position: relative;
+}
+
+.section-accent-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, hsl(24 90% 55% / 0.12), hsl(220 80% 60% / 0.06), transparent 70%);
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes ping-realtime {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.animate-ping-realtime {
+  animation: ping-realtime 2s ease-out infinite;
+}
+
+/* Motif SVG filter */
+.motif-filter {
+  filter: var(--motif-filter);
+}
+
+@layer utilities {
+  .gradient-warm {
+    background: var(--gradient-warm);
+  }
+
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .font-serif {
+    font-family: 'DM Serif Display', serif;
+  }
+
+  .font-sans {
+    font-family: 'DM Sans', system-ui, sans-serif;
+  }
+
+  .glass-card {
+    @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg;
+  }
+
+  /* Ambient Gradients - Sarvam aesthetic (Theme Aware) */
+  .bg-ambient-hero {
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(249, 115, 12, var(--ambient-glow-op)) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 10%, rgba(255, 176, 83, var(--ambient-mist-op)) 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 100%, rgba(165, 187, 252, var(--ambient-glow-op)) 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 100%, rgba(165, 187, 252, var(--ambient-glow-op)) 0%, transparent 60%),
+      var(--ambient-base);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .bg-ambient-footer {
+    background:
+      radial-gradient(ellipse at 50% 110%, rgba(249, 115, 12, var(--ambient-glow-op)) 0%, transparent 60%),
+      radial-gradient(ellipse at 10% 0%, rgba(165, 187, 252, var(--ambient-mist-op)) 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 0%, rgba(165, 187, 252, var(--ambient-mist-op)) 0%, transparent 60%),
+      var(--ambient-base);
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .bg-ambient-site {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(249, 115, 12, calc(var(--ambient-glow-op) * 0.5)) 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 100%, rgba(165, 187, 252, calc(var(--ambient-mist-op) * 0.5)) 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 100%, rgba(165, 187, 252, calc(var(--ambient-mist-op) * 0.5)) 0%, transparent 60%),
+      var(--ambient-base);
+    background-attachment: fixed;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.3);
+}

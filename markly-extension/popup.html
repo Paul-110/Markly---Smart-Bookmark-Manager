@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Markly Quick Save</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --accent: 24 90% 55%;
+            --accent-foreground: 0 0% 100%;
+            --background: 0 0% 100%;
+            --foreground: 220 20% 10%;
+            --muted: 30 10% 94%;
+            --muted-foreground: 220 10% 45%;
+            --border: 220 10% 92%;
+            --glass: rgba(255, 255, 255, 0.8);
+            --card-bg: white;
+            --radius-full: 9999px;
+            --radius-lg: 12px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: 0 0% 6%;
+                --foreground: 30 10% 90%;
+                --muted: 0 0% 15%;
+                --muted-foreground: 0 0% 50%;
+                --border: 0 0% 16%;
+                --glass: rgba(15, 23, 42, 0.8);
+                --card-bg: #171717;
+            }
+
+            .premium-bg {
+                background: linear-gradient(135deg, #020617 0%, #0f172a 100%) !important;
+            }
+
+            .brand-name {
+                background: linear-gradient(to right, #f8fafc, #cbd5e1) !important;
+                -webkit-background-clip: text !important;
+                background-clip: text !important;
+            }
+
+            input,
+            textarea {
+                background: #1e293b !important;
+                color: #f8fafc !important;
+                border-color: rgba(248, 250, 252, 0.1) !important;
+            }
+
+            .chip {
+                background: #1e293b !important;
+                color: #f8fafc !important;
+            }
+
+            .chip.category-chip {
+                background: #1e3a8a !important;
+                color: #bfdbfe !important;
+                border-color: rgba(59, 130, 246, 0.3) !important;
+            }
+
+            .favicon-box {
+                background: #1e293b !important;
+            }
+        }
+
+        body {
+            width: 360px;
+            margin: 0;
+            padding: 0;
+            font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+            overflow-x: hidden;
+            border-radius: 12px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .premium-bg {
+            position: fixed;
+            inset: 0;
+            background: hsl(var(--background));
+            z-index: -1;
+        }
+
+        .mesh-gradient {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, hsl(var(--accent) / 0.15) 0%, transparent 70%);
+            filter: blur(40px);
+            z-index: -1;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: hsl(var(--accent));
+        }
+
+        .logo-box svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2.5;
+        }
+
+        .brand-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 20px;
+            letter-spacing: -0.01em;
+            color: hsl(var(--foreground));
+        }
+
+        .view-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: hsl(var(--background) / 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid hsl(var(--border) / 0.5);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 6px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            background: hsl(var(--background));
+            border: 1px solid hsl(var(--border) / 0.5);
+            border-radius: 10px;
+            font-size: 13px;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: all 0.2s;
+            color: hsl(var(--foreground));
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: hsl(var(--accent));
+            box-shadow: 0 0 0 3px hsl(var(--accent) / 0.1);
+        }
+
+        textarea {
+            height: 80px;
+            resize: none;
+        }
+
+        .btn-primary {
+            position: relative;
+            width: 100%;
+            padding: 14px;
+            background: #131313;
+            color: white;
+            border: none;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+            box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.05), 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), hsl(var(--accent) / 0.35) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.1), 0px 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary:disabled {
+            background: hsl(var(--muted));
+            color: hsl(var(--muted-foreground));
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-primary:disabled::before {
+            display: none;
+        }
+
+        .meta-preview {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .favicon-box {
+            width: 40px;
+            height: 40px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .favicon-box img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .meta-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .meta-hostname {
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 2px;
+        }
+
+        .meta-title {
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .status-area {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--muted);
+            min-height: 20px;
+        }
+
+        .loader {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(59, 130, 246, 0.1);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        /* AI Suggestions Styles */
+        .suggestions-container {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px dashed rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .suggestions-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: hsl(var(--accent));
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .suggestion-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .chip {
+            font-size: 11px;
+            padding: 4px 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--foreground);
+            white-space: nowrap;
+        }
+
+        .chip:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .chip.category-chip {
+            background: #eff6ff;
+            border-color: #dbeafe;
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+
+        .chip.category-chip:hover {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .success-icon {
+            color: #10b981;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        .user-status {
+            font-size: 10px;
+            font-weight: 600;
+            color: hsl(var(--muted-foreground));
+            background: hsl(var(--muted));
+            padding: 4px 10px;
+            border-radius: 100px;
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .bookmarked-badge {
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            width: 16px;
+            height: 16px;
+            background: #22c55e;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid hsl(var(--background));
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: none;
+            /* Hidden by default */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="premium-bg"></div>
+    <div class="mesh-gradient"></div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo-group">
+                <div class="logo-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </div>
+                <div class="brand-name">Markly</div>
+            </div>
+            <div class="user-status" id="userStatus">
+                <span id="userEmail">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Main View -->
+        <div id="mainView" class="view-section">
+            <div class="card">
+                <div class="meta-preview" id="metaPreview">
+                    <div class="favicon-box" style="position: relative;">
+                        <img id="favicon" src="" alt="">
+                        <div id="bookmarkedBadge" class="bookmarked-badge" title="Already in Markly">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 6L9 17l-5-5"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="meta-info">
+                        <div class="meta-hostname" id="hostname">...</div>
+                        <div class="meta-title" id="pageTitle">Loading...</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="pageDescription" placeholder="Add a note or description..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Tags (Comma separated)</label>
+                    <input type="text" id="tags" placeholder="work, research, design...">
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" id="category" placeholder="e.g. Technology, Finance...">
+                </div>
+
+                <div id="aiSuggestions" class="suggestions-container">
+                    <div class="suggestions-title">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                        </svg>
+                        AI Suggestions
+                    </div>
+                    <div id="suggestionChips" class="suggestion-chips">
+                        <!-- Chips will be injected here -->
+                    </div>
+                </div>
+
+                <button id="saveBtn" class="btn-primary">
+                    <span id="btnText">Add to Bookmarks</span>
+                </button>
+            </div>
+            <a id="settingsLink" class="settings-link">Settings & Account</a>
+        </div>
+
+        <!-- Setup View -->
+        <div id="setupView" class="view-section">
+            <div class="card setup-card">
+                <p>To use the extension, please sign in to your Markly account on the web dashboard.</p>
+                <div class="form-group">
+                    <label>Markly Dashboard URL</label>
+                    <input type="text" id="marklyUrl" value="http://localhost:3000">
+                </div>
+                <div class="form-group">
+                    <label>API / Session Token</label>
+                    <input type="password" id="sessionToken" placeholder="Paste your token here">
+                </div>
+                <button id="saveSettingsBtn" class="btn-primary">Connect Account</button>
+                <p style="font-size: 11px; margin-top: 12px;">You can find your token in Dashboard > Settings</p>
+            </div>
+        </div>
+
+        <div class="status-area" id="statusArea">
+            <span id="statusText"></span>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>

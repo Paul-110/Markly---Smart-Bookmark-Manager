@@ -1,0 +1,34 @@
+{
+    "manifest_version": 3,
+    "name": "Markly - Smart Bookmark Manager",
+    "version": "1.0.0",
+    "description": "One-click bookmarking for Markly with AI categorization.",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "scripting",
+        "cookies"
+    ],
+    "host_permissions": [
+        "http://localhost:3000/*",
+        "https://*.supabase.co/*",
+        "http://*/*",
+        "https://*/*"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/bookmark-16.png",
+            "48": "icons/bookmark-48.png",
+            "128": "icons/bookmark-128.png"
+        }
+    },
+    "icons": {
+        "16": "icons/bookmark-16.png",
+        "48": "icons/bookmark-48.png",
+        "128": "icons/bookmark-128.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    }
+}
