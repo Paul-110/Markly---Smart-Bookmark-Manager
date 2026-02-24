@@ -6,8 +6,3 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
     event.waitUntil(self.clients.claim());
 });
-
-self.addEventListener('fetch', (event) => {
-    // Let everything pass through
-    return;
-});
