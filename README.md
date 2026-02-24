@@ -1,10 +1,31 @@
-# Markly — Smart Bookmark Manager
+<p align="center">
+  <img src="public/assets/svg/sp.svg" alt="Markly Logo" width="120" height="120">
+</p>
 
-An AI-powered bookmark manager built with **Next.js 16**, **Supabase**, and **Google Gemini**. Markly helps you organize, share, and intelligently categorize your bookmarks with real-time collaboration, smart collections, and a Chrome extension.
+<h1 align="center">Markly - Smart Bookmark Manager</h1>
+
+<p align="center">
+  An AI-powered bookmark manager built with <strong>Next.js 16</strong>, <strong>Supabase</strong>, and <strong>Google Gemini</strong>. Markly helps you organize, share, and intelligently categorize your bookmarks with real-time collaboration, smart collections, and a Chrome extension.
+</p>
+
+<p align="center">
+  <a href="https://your-app.vercel.app"><strong>🌐 Live Demo</strong></a>
+</p>
+
+<p align="center">
+  <img src="public/Markly.png" alt="Markly - Smart Bookmark Manager" width="100%">
+</p>
+
+<p align="center">
+  <a href="#-tech-stack">Tech Stack</a> •
+  <a href="#-features">Features</a> •
+  <a href="#-api-endpoints">API</a> •
+  <a href="#-deployment">Deployment</a>
+</p>
 
 ---
 
-## Tech Stack
+## 🛠 Tech Stack
 
 | Layer          | Technology                                          |
 |----------------|-----------------------------------------------------|
@@ -15,6 +36,99 @@ An AI-powered bookmark manager built with **Next.js 16**, **Supabase**, and **Go
 | Extension      | Chrome Manifest V3 (Popup + Background Service Worker) |
 | Fonts          | DM Sans, DM Serif Display (Google Fonts)             |
 | PWA            | Service Worker + Web App Manifest                    |
+
+---
+
+## ✨ Features
+
+- **AI-Powered Organization** — Auto-categorize, tag, and summarize bookmarks using Google Gemini
+- **Smart Collections** — AI-generated collections that group bookmarks by topic or theme
+- **Real-Time Collaboration** — Share collections with others and see updates via Supabase Realtime
+- **Chrome Extension** — Save bookmarks from any page with one click; auto-suggests tags and categories
+- **Short URLs** — Generate shareable short links for any bookmark
+- **Smart Scheduling** — AI-recommended reading schedules based on your bookmarks
+- **Analytics Dashboard** — Track bookmark usage, visit counts, and collection activity
+- **Drag & Drop** — Reorder bookmarks within collections using dnd-kit
+- **PWA Support** — Install as a native app with offline capabilities
+- **Dark Mode** — Full dark theme with next-themes integration
+
+---
+
+## 🔌 API Endpoints
+
+### Chrome Extension APIs
+
+All extension endpoints require a `Bearer` token via the `Authorization` header.
+
+| Method | Endpoint                     | Description                                      |
+|--------|------------------------------|--------------------------------------------------|
+| POST   | `/api/extension/check-url`   | Check if a URL is already bookmarked             |
+| POST   | `/api/extension/save`        | Save or update a bookmark (triggers AI analysis) |
+| POST   | `/api/extension/suggest`     | Get AI-suggested tags and category for a URL     |
+
+### Server Actions
+
+| Action              | Description                                          |
+|---------------------|------------------------------------------------------|
+| `ai-analyze`        | Summarize and analyze a bookmark with AI             |
+| `ai-insights`       | Generate AI insights across your bookmark library    |
+| `suggest-tags`      | AI-powered tag suggestions for bookmarks             |
+| `smart-schedule`    | Generate reading schedules based on bookmarks        |
+| `create-bookmark`   | Create a bookmark with metadata fetching             |
+| `fetch-metadata`    | Scrape Open Graph metadata from any URL              |
+| `share-actions`     | Share bookmarks/collections with other users         |
+| `shorten-url`       | Generate short URLs for sharing                      |
+| `collection-actions`| Create, update, and manage collections               |
+| `import-collection` | Import a shared collection into your library         |
+| `record-visit`      | Track bookmark visits for analytics                  |
+
+### Utility
+
+| Method | Endpoint                | Description                                         |
+|--------|-------------------------|-----------------------------------------------------|
+| GET    | `/api/migrate-shared-by`| One-time migration to add `shared_by` column        |
+| GET    | `/s/[code]`             | Redirect to a shared collection via short code      |
+
+---
+
+## 🚀 Deployment
+
+### Prerequisites
+
+- Node.js 18+
+- A [Supabase](https://supabase.com) project with Auth and PostgreSQL
+- A [Google Gemini API key](https://aistudio.google.com/apikey)
+
+### Environment Variables
+
+Create a `.env.local` file in the project root:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+GEMINI_API_KEY=your-gemini-api-key
+```
+
+### Database Setup
+
+Run the SQL migrations in order from the `supabase/migrations/` folder in the Supabase SQL Editor:
+
+1. `001_initial_schema.sql` — Core tables (bookmarks, collections, profiles)
+2. `002_collaboration.sql` — Collection sharing and members
+3. `003_ai_enhancements.sql` — AI summary and tag columns
+4. `004_analytics.sql` — Visit tracking and analytics
+5. `005_short_urls.sql` — Short URL generation
+6. `006_ensure_profiles.sql` — Profile auto-creation trigger
+7. `007_fix_recursion.sql` — Fix recursive RLS policies
+8. `008_add_position_column.sql` — Drag & drop ordering
+9. `009_shared_bookmarks_rls.sql` — Shared bookmark access policies
+
+### Deploy to Vercel
+
+1. Push your repo to GitHub
+2. Import the project in [Vercel](https://vercel.com)
+3. Add the environment variables above in the Vercel dashboard
+4. Deploy — Vercel auto-detects Next.js and builds with Turbopack
 
 ---
 
@@ -244,6 +358,35 @@ markly-next/
 
 ---
 
-## License
+For issues or questions:
 
-Private project — not for redistribution.
+- Open an issue on GitHub
+- Check the [documentation](docs/)
+- Review the [API guide](API_GUIDE.md)
+
+Ekky Spurgeon – spurgeonpaul11@outlook.com
+
+---
+
+## 🎯 Roadmap
+
+- [x] AI-powered bookmark categorization & tagging
+- [x] Real-time collaboration with Supabase Realtime
+- [x] Chrome Extension (Manifest V3)
+- [x] PWA with offline support
+- [x] Short URL generation & sharing
+- [x] Analytics dashboard
+- [ ] CI/CD pipeline
+- [ ] Kubernetes deployment
+- [ ] Firefox & Edge extension support
+- [ ] Mobile app (React Native)
+
+---
+
+<div align="center">
+
+**Made with ❤️ using Next.js, Supabase, and Google Gemini**
+
+⭐ Star this repo if you find it helpful!
+
+</div>
